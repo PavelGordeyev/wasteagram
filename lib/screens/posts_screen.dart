@@ -32,9 +32,6 @@ class _PostsScreenState extends State<PostsScreen> {
             ),
           ),
           Container(
-            decoration: const BoxDecoration(
-              color: Color(0xffddddff),
-            ),
             padding: const EdgeInsets.all(10.0),
             child: Text(
               document['count'].toString(),
