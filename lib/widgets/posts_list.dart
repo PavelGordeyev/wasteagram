@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wasteagram/screens/details_screen.dart';
 
 class PostsList extends StatefulWidget {
 
-  PostsList({Key key}) : super(key: key);
+  PostsList({Key key, this.title}) : super(key: key);
+
+  final String title;
 
   @override
   _PostsListState createState() => _PostsListState();
@@ -56,9 +59,10 @@ class _PostsListState extends State<PostsList> {
           )
         ],
       ),
-      onTap: () {
-        // print("Should increase votes here");
-      },
+      onTap: () { Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DetailsScreen(title: widget.title,)));
+          },
     );
   }
 }
