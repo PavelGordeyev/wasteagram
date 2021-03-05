@@ -10,19 +10,23 @@ class Details extends StatelessWidget {
     
     Column(
         children: [
-          Center(
-            child: Row(
-              children: [
-                Text("Hello"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                heightFactor: 5.0,
+                child: Text("Hello"),
+              ),
               ],
-            ),
           ),
-          Center(
-            child: Row(
-              children: [
-                Text("World"),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                heightFactor: 5.0,
+                child: Text("Hello"),
+              ),
+            ],
           ),
         ]
       );
