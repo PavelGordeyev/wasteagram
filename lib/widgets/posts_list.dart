@@ -27,18 +27,13 @@ class _PostsListState extends State<PostsList> {
   }
 
   Widget _itemList({AsyncSnapshot snapshot}) {
-    return Column(
-      children: [
-        Expanded(
-            child: ListView.builder(
-            itemExtent: 80.0,
-            itemCount: snapshot.data.documents.length,
-            itemBuilder: (context, index) =>
-              _buildListItem(context, snapshot.data.documents[index]),
-          ),
-        ),
-
-      ],
+    return Expanded(
+        child: ListView.builder(
+        itemExtent: 80.0,
+        itemCount: snapshot.data.documents.length,
+        itemBuilder: (context, index) =>
+          _buildListItem(context, snapshot.data.documents[index]),
+      ),
     );
   }
 

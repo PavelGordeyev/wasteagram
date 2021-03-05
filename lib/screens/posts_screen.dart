@@ -13,7 +13,19 @@ class PostsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: PostsList(),
+      body: Column(
+        children: [
+          PostsList(),
+          Container(
+            padding: const EdgeInsets.all(50.0),
+            child: FloatingActionButton(
+              backgroundColor: Colors.orange,
+              child: Icon(Icons.camera_alt),
+              onPressed: null
+            ),
+          )
+        ]
+      )
     );
   }
 }
