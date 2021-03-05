@@ -8,7 +8,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Wasteagram',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: PostsScreen(title: 'Wasteagram'),
