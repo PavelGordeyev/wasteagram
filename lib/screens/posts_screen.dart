@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class PostsScreen extends StatefulWidget {
   PostsScreen({Key key, this.title}) : super(key: key);
@@ -26,7 +27,7 @@ class _PostsScreenState extends State<PostsScreen> {
         children: [
           Expanded(
             child: Text(
-              DateTime.fromMillisecondsSinceEpoch(document['date_posted'].seconds * 1000).toString(),
+              DateFormat('EEEE, MMMM dd, yyyy').format(DateTime.fromMillisecondsSinceEpoch(document['date_posted'].seconds * 1000)).toString(),
               style: Theme.of(context).textTheme.headline5,
             ),
           ),
