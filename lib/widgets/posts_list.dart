@@ -64,7 +64,7 @@ class _PostsListState extends State<PostsList> {
       ),
       onTap: () { Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DetailsScreen(title: widget.title,)));
+              MaterialPageRoute(builder: (context) => DetailsScreen(title: widget.title, document: document,)));
           },
     );
   }
