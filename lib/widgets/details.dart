@@ -26,16 +26,30 @@ class Details extends StatelessWidget {
               ),
               ],
           ),
+          SizedBox(height: 30.0,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
                 heightFactor: 5.0,
-                child: Text("${document['count']} items"),
+                child: imagePlaceholder(),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                heightFactor: 5.0,
+                child: Text("${document['count']} items", style: Theme.of(context).textTheme.headline5,),
               ),
             ],
           ),
         ]
       );
+  }
+
+  Widget imagePlaceholder() {
+    return CircularProgressIndicator();
   }
 }
