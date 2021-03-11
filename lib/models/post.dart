@@ -26,6 +26,10 @@ class Post {
     return DateFormat('EEEE, MMMM d, yyyy').format(DateTime.fromMillisecondsSinceEpoch(date.seconds * 1000)).toString();
   }
 
+  Timestamp get postDateTimestamp {
+    return date;
+  }
+
   double get postLatitude {
     return latitude;
   }
