@@ -4,6 +4,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:location/location.dart';
+import 'package:wasteagram/models/post.dart';
 
 class NewPost extends StatefulWidget {
 
@@ -21,6 +23,7 @@ class _NewPostState extends State<NewPost> {
   File image;
   final picker = ImagePicker();
   final formKey = GlobalKey<FormState>();
+  final post = Post();
 
   @override
   Widget build(BuildContext context){
@@ -63,7 +66,13 @@ class _NewPostState extends State<NewPost> {
       width: MediaQuery.of(context).size.width,
       height: 150.0,
       child: ElevatedButton(
-        onPressed: null, 
+        onPressed: () async {
+          if (formKey.currentState.validate()) {
+            formKey.currentState.save();
+            _submitPost();
+            // Navigator.pushNamedAndRemoveUntil(context, JournalEntries.routeName, (r) => false);
+          }
+        }, 
         child: Icon(Icons.upload_rounded),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
@@ -89,7 +98,7 @@ class _NewPostState extends State<NewPost> {
                   fontSize: 30.0,
                 ),
                 onSaved: (value) {
-
+                  post.wastedItemCount = int.parse(value);
                 },
                 validator: (value) {
                   if (value.isEmpty){
@@ -104,13 +113,32 @@ class _NewPostState extends State<NewPost> {
       );
   }
 
+  void _submitPost() async{
+
+    await _uploadGetImageURL();
+    await _getLocation();
+    post.date = Timestamp.now();
+    debugPrint("date: ${post.postDateLong}");
+    debugPrint("latitude: ${post.postLatitude}");
+    debugPrint("longitude: ${post.postLongitude}");
+    debugPrint("image: ${post.postImageURL}");
+    debugPrint("count: ${post.postWastedItemCount}");
+  }
+
+  Future _getLocation() async{
+    var locationService = Location();
+    LocationData locationData = await locationService.getLocation();
+    post.latitude = locationData.latitude;
+    post.longitude = locationData.longitude;
+  }
+
   void _getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     image = File(pickedFile.path);
     setState(() { });
   }
 
-  void _uploadGetImageURL() async {
+  Future _uploadGetImageURL() async {
     StorageReference storageReference = 
       FirebaseStorage.instance.ref().child(_generateFileName(image.path));
     
@@ -118,7 +146,7 @@ class _NewPostState extends State<NewPost> {
     await uploadTask.onComplete;
 
     final imageURL = await storageReference.getDownloadURL();
-    return imageURL;
+    post.imageURL = imageURL;
   }
 
   String _generateFileName(String filename) {
