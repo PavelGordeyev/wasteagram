@@ -60,7 +60,7 @@ class _NewPostState extends State<NewPost> {
   Widget postButton() {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: 100.0,
+      height: 150.0,
       child: ElevatedButton(
         onPressed: null, 
         child: Icon(Icons.upload_rounded),
@@ -83,7 +83,10 @@ class _NewPostState extends State<NewPost> {
                 autofocus: false,
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                decoration: InputDecoration(labelText: '# of Wasted Items'),
+                decoration: InputDecoration(hintText: '# of Wasted Items'),
+                style: TextStyle(
+                  fontSize: 30.0,
+                ),
                 onSaved: (value) {
 
                 },
