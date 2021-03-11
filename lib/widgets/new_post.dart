@@ -38,8 +38,14 @@ class _NewPostState extends State<NewPost> {
 
   Widget _post(){
     
-    if(image == null)
-      return CircularProgressIndicator();
+    if(image == null){
+      return Padding(
+        padding: EdgeInsets.all(30.0),
+        child: Center(
+          child: CircularProgressIndicator()
+        )
+      );
+    }
     
     return Column(
       children: [
