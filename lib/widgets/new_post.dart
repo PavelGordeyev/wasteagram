@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:wasteagram/models/post.dart';
+import 'package:wasteagram/screens/posts_screen.dart';
 
 class NewPost extends StatefulWidget {
 
@@ -70,7 +72,10 @@ class _NewPostState extends State<NewPost> {
           if (formKey.currentState.validate()) {
             formKey.currentState.save();
             _submitPost();
-            // Navigator.pushNamedAndRemoveUntil(context, JournalEntries.routeName, (r) => false);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => PostsScreen(title: 'Wasteagram')), 
+                (Route<dynamic> route) => false);
           }
         }, 
         child: Icon(Icons.upload_rounded),
@@ -118,11 +123,20 @@ class _NewPostState extends State<NewPost> {
     await _uploadGetImageURL();
     await _getLocation();
     post.date = Timestamp.now();
-    debugPrint("date: ${post.postDateLong}");
-    debugPrint("latitude: ${post.postLatitude}");
-    debugPrint("longitude: ${post.postLongitude}");
-    debugPrint("image: ${post.postImageURL}");
-    debugPrint("count: ${post.postWastedItemCount}");
+
+    FirebaseFirestore.instance.collection('posts').add({
+      'date_posted': post.postDateTimestamp,
+      'image_url': post.postImageURL,
+      'latitude': post.postLatitude,
+      'longitude': post.postLongitude,
+      'count': post.postWastedItemCount
+    });
+
+    // debugPrint("date: ${post.postDateLong}");
+    // debugPrint("latitude: ${post.postLatitude}");
+    // debugPrint("longitude: ${post.postLongitude}");
+    // debugPrint("image: ${post.postImageURL}");
+    // debugPrint("count: ${post.postWastedItemCount}");
   }
 
   Future _getLocation() async{
