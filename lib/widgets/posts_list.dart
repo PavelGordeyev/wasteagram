@@ -35,8 +35,8 @@ class _PostsListState extends State<PostsList> {
     final post = Post();
 
     post.date = document['date_posted'];
-    // post.latitude = document['latitude'];
-    // post.longitude = document['longitude'];
+    post.latitude = document['latitude'];
+    post.longitude = document['longitude'];
     post.imageURL = document['image_url'];
     post.wastedItemCount = document['count'];
 

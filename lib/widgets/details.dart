@@ -47,15 +47,15 @@ class Details extends StatelessWidget {
               ),
             ],
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     Center(
-          //       heightFactor: 5.0,
-          //       child: Text("${post.postLatitude}", style: Theme.of(context).textTheme.headline5,),
-          //     ),
-          //   ],
-          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                heightFactor: 5.0,
+                child: Text("Location(${post.postLatitude}, ${post.postLongitude})", style: Theme.of(context).textTheme.headline6,),
+              ),
+            ],
+          ),
         ]
       );
   }
