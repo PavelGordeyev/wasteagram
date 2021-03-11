@@ -18,6 +18,7 @@ class PostsScreen extends StatelessWidget {
       body: Column(
         children: [
           PostsList(title: title,),
+          Spacer(),
           Container(
             padding: const EdgeInsets.all(50.0),
             child: FloatingActionButton(

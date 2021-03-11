@@ -23,9 +23,12 @@ class _PostsListState extends State<PostsList> {
         stream: FirebaseFirestore.instance
           .collection('posts').orderBy('date_posted', descending: true).snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return CircularProgressIndicator();
-          }
+          // if (!snapshot.hasData && snapshot.data.documents.length == 0) {
+          //   debugPrint("*****NO DATA*****");
+          //   return Center(
+          //     child: CircularProgressIndicator()
+          //   );
+          // }
 
           return _itemList(snapshot: snapshot);
         }
@@ -45,17 +48,28 @@ class _PostsListState extends State<PostsList> {
   }
 
   Widget _itemList({AsyncSnapshot snapshot}) {
-    return Expanded(
-      child: ListView.separated(
-        itemBuilder: (context, index) {
-          return _buildListItem(context, _buildPost(snapshot.data.documents[index]));
-        },
-        separatorBuilder: (context, index) {
-          return Divider();
-        },
-        itemCount: snapshot.data.documents.length,
-      )
-    );
+
+    if (!snapshot.hasData || snapshot.data.documents.length == 0){
+      return Padding(
+        padding: EdgeInsets.all(30.0),
+        child: Center(
+          child: CircularProgressIndicator()
+        )
+      );
+    } else{
+      return Expanded(
+        child: ListView.separated(
+          itemBuilder: (context, index) {
+            return _buildListItem(context, _buildPost(snapshot.data.documents[index]));
+          },
+          separatorBuilder: (context, index) {
+            return Divider();
+          },
+          itemCount: snapshot.data.documents.length,
+        )
+      );
+    }
+    
   }
 
   Widget _buildListItem(BuildContext context, Post post) {
