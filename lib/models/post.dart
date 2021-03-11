@@ -1,18 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class Post {
-  final String title;
-  final int wastedItemCount;
-  final DateTime date;
-  final String imageURL;
-  final double latitude;
-  final double longitude;
+  int wastedItemCount;
+  Timestamp date;
+  String imageURL;
+  double latitude;
+  double longitude;
 
-  Post({this.title, this.wastedItemCount, this.date, this.imageURL, this.latitude, this.longitude});
-
-  String get postTitle {
-    return title;
-  }
+  Post({this.wastedItemCount, this.date, this.imageURL, this.latitude, this.longitude});
 
   int get postWastedItemCount {
     return wastedItemCount;
@@ -22,8 +18,12 @@ class Post {
     return imageURL;
   }
 
-  String get postDate {
-    return DateFormat('EEE, MMM d, yyyy').format(date).toString();
+  String get postDateShort {
+    return DateFormat('EEE, MMM d, yyyy').format(DateTime.fromMillisecondsSinceEpoch(date.seconds * 1000)).toString();
+  }
+
+  String get postDateLong {
+    return DateFormat('EEEE, MMMM d, yyyy').format(DateTime.fromMillisecondsSinceEpoch(date.seconds * 1000)).toString();
   }
 
   double get postLatitude {

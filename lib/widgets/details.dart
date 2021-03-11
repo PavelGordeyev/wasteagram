@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
+import 'package:wasteagram/models/post.dart';
 import 'package:wasteagram/widgets/posts_list.dart';
 
 class Details extends StatelessWidget {
-  Details({Key key, this.document}) : super(key: key);
+  Details({Key key, this.post}) : super(key: key);
 
-  final DocumentSnapshot document;
+  final Post post;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class Details extends StatelessWidget {
               Center(
                 heightFactor: 5.0,
                 child: Text(
-                    DateFormat('EEE, MMM d, yyyy').format(DateTime.fromMillisecondsSinceEpoch(document['date_posted'].seconds * 1000)).toString(),
+                    post.postDateShort,
                     style: Theme.of(context).textTheme.headline5,
             ),
               ),
@@ -32,7 +33,7 @@ class Details extends StatelessWidget {
               Center(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(maxHeight: 300, maxWidth: 350),
-                  child: Image.network(document['image_url'])
+                  child: Image.network(post.postImageURL)
                 ),
               ),
             ],
@@ -42,20 +43,29 @@ class Details extends StatelessWidget {
             children: [
               Center(
                 heightFactor: 5.0,
-                child: Text("${document['count']} items", style: Theme.of(context).textTheme.headline5,),
+                child: Text("${post.postWastedItemCount} items", style: Theme.of(context).textTheme.headline5,),
               ),
             ],
           ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Center(
+          //       heightFactor: 5.0,
+          //       child: Text("${post.postLatitude}", style: Theme.of(context).textTheme.headline5,),
+          //     ),
+          //   ],
+          // ),
         ]
       );
   }
 
-  Widget imagePlaceholder() {
-    if (document['image_url'] == "")
-      return CircularProgressIndicator();
-    else
-      return Image(image: document['image_url']);
-  }
+  // Widget imagePlaceholder() {
+  //   if (document['image_url'] == "")
+  //     return CircularProgressIndicator();
+  //   else
+  //     return Image(image: document['image_url']);
+  // }
 
   // void retrieveLocation() async {
 
