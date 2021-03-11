@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -107,6 +108,23 @@ class _NewPostState extends State<NewPost> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     image = File(pickedFile.path);
     setState(() { });
+  }
+
+  void _uploadGetImageURL() async {
+    StorageReference storageReference = 
+      FirebaseStorage.instance.ref().child(_generateFileName(image.path));
+    
+    StorageUploadTask uploadTask = storageReference.putFile(image);
+    await uploadTask.onComplete;
+
+    final imageURL = await storageReference.getDownloadURL();
+    return imageURL;
+  }
+
+  String _generateFileName(String filename) {
+    final String timeStamp = Timestamp.now().seconds.toString();
+    final String shortFilename = filename.substring(filename.indexOf('image_picker'));
+    return '$timeStamp-$shortFilename';
   }
 
 }
