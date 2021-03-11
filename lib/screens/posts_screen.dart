@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wasteagram/widgets/posts_list.dart';
+import 'package:wasteagram/screens/new_post_screen.dart';
 
 class PostsScreen extends StatelessWidget {
   PostsScreen({Key key, this.title}) : super(key: key);
@@ -22,7 +23,10 @@ class PostsScreen extends StatelessWidget {
             child: FloatingActionButton(
               backgroundColor: Colors.orange,
               child: Icon(Icons.camera_alt),
-              onPressed: null
+              onPressed: () { Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NewPostScreen(title: 'New Post')));
+              }
             ),
           )
         ]
