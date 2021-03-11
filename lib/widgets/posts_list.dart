@@ -47,7 +47,6 @@ class _PostsListState extends State<PostsList> {
     return Expanded(
       child: ListView.separated(
         itemBuilder: (context, index) {
-          debugPrint('document: ${snapshot.data.documents[index]}');
           return _buildListItem(context, _buildPost(snapshot.data.documents[index]));
         },
         separatorBuilder: (context, index) {
