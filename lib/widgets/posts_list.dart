@@ -76,7 +76,7 @@ class _PostsListState extends State<PostsList> {
     return Semantics(
       child: _listTile(context, post),
       button: false,
-      label: 'List element of a wasteagram post',
+      label: 'List element of a wasteagram post made on ${post.postDateLong}',
       onTapHint: 'View data about a wasteagram post',
     );
   }

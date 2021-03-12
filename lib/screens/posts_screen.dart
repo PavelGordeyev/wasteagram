@@ -26,6 +26,7 @@ class PostsScreen extends StatelessWidget {
                 button: true,
                 enabled: true,
                 onTapHint: 'Select a photo',
+                label: 'Photo selection button'
               ),
             ),
         ]
