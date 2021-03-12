@@ -5,7 +5,7 @@ import 'package:wasteagram/models/post.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  test('Post created from map correctly', () {
+  test('Post created from map has appropriate post property values', () {
     final datePosted = Timestamp.now();
     const url = 'https://www.google.com';
     const lat = 2.0;
@@ -26,5 +26,27 @@ void main() {
     expect(post.longitude, long);
     expect(post.imageURL, url);
 
+  });
+
+  test('Long date is correctly formatted', () {
+
+    final datePosted = Timestamp.fromDate(DateTime(2021,1,1));
+    final strDateLong = 'Friday, January 1, 2021';
+
+    final post = Post();
+    post.datePosted = datePosted;
+
+    expect(post.postDateLong, strDateLong);
+  });
+
+  test('Short date is correctly formatted', () {
+
+    final datePosted = Timestamp.fromDate(DateTime(2021,1,1));
+    final strDateShort = 'Fri, Jan 1, 2021';
+
+    final post = Post();
+    post.datePosted = datePosted;
+
+    expect(post.postDateShort, strDateShort);
   });
 }
