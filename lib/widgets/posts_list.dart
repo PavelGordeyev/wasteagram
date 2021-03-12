@@ -37,15 +37,13 @@ class _PostsListState extends State<PostsList> {
   }
 
   Post _buildPost(DocumentSnapshot document) {
-    final post = Post();
-
-    post.date = document['date_posted'];
-    post.latitude = document['latitude'];
-    post.longitude = document['longitude'];
-    post.imageURL = document['image_url'];
-    post.wastedItemCount = document['count'];
-
-    return post;
+    return Post.fromMap({
+      'datePosted' : document['date_posted'],
+      'wastedItemCount' : document['count'],
+      'latitude' : document['latitude'],
+      'longitude' : document['longitude'],
+      'imageURL' : document['image_url']
+    });
   }
 
   Widget _itemList({AsyncSnapshot snapshot}) {

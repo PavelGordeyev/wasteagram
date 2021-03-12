@@ -139,7 +139,7 @@ class _NewPostState extends State<NewPost> {
 
     await _getLocation();
     await _uploadGetImageURL();
-    post.date = Timestamp.now();
+    post.datePosted = Timestamp.now();
 
     FirebaseFirestore.instance.collection('posts').add({
       'date_posted': post.postDateTimestamp,
