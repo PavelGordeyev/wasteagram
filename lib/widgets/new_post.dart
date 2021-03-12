@@ -49,7 +49,7 @@ class _NewPostState extends State<NewPost> {
     
     return Column(
       children: [
-        imageToPost(),
+        _imageToPost(),
         _wastedItemsForm(),
         Spacer(),
         _postButton()
@@ -57,7 +57,7 @@ class _NewPostState extends State<NewPost> {
     );
   }
 
-  Widget imageToPost() {
+  Widget _imageToPost() {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Center(
@@ -126,8 +126,8 @@ class _NewPostState extends State<NewPost> {
 
   void _submitPost() async{
 
-    await _uploadGetImageURL();
     await _getLocation();
+    await _uploadGetImageURL();
     post.date = Timestamp.now();
 
     FirebaseFirestore.instance.collection('posts').add({
