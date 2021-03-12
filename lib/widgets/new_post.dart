@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -137,12 +136,6 @@ class _NewPostState extends State<NewPost> {
       'longitude': post.postLongitude,
       'count': post.postWastedItemCount
     });
-
-    // debugPrint("date: ${post.postDateLong}");
-    // debugPrint("latitude: ${post.postLatitude}");
-    // debugPrint("longitude: ${post.postLongitude}");
-    // debugPrint("image: ${post.postImageURL}");
-    // debugPrint("count: ${post.postWastedItemCount}");
   }
 
   Future _getLocation() async{
