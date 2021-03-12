@@ -22,14 +22,16 @@ class _PostsListState extends State<PostsList> {
         stream: FirebaseFirestore.instance
           .collection('posts').orderBy('date_posted', descending: true).snapshots(),
         builder: (context, snapshot) {
-          // if (!snapshot.hasData && snapshot.data.documents.length == 0) {
-          //   debugPrint("*****NO DATA*****");
-          //   return Center(
-          //     child: CircularProgressIndicator()
-          //   );
-          // }
 
-          return _itemList(snapshot: snapshot);
+          if(snapshot.hasData && snapshot.data.documents != null && snapshot.data.documents.length > 0)
+            return _itemList(snapshot: snapshot);
+          
+          return Padding(
+            padding: EdgeInsets.all(30.0),
+            child: Center(
+              child: CircularProgressIndicator()
+            )
+          );
         }
     );
   }
@@ -48,14 +50,6 @@ class _PostsListState extends State<PostsList> {
 
   Widget _itemList({AsyncSnapshot snapshot}) {
 
-    if (!snapshot.hasData || snapshot.data.documents.length == 0){
-      return Padding(
-        padding: EdgeInsets.all(30.0),
-        child: Center(
-          child: CircularProgressIndicator()
-        )
-      );
-    } else{
       return Expanded(
         child: ListView.separated(
           itemBuilder: (context, index) {
@@ -67,7 +61,6 @@ class _PostsListState extends State<PostsList> {
           itemCount: snapshot.data.documents.length,
         )
       );
-    }
     
   }
 
