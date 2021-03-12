@@ -1,10 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import 'package:location/location.dart';
 import 'package:wasteagram/models/post.dart';
-import 'package:wasteagram/widgets/posts_list.dart';
 
 class Details extends StatelessWidget {
   Details({Key key, this.post}) : super(key: key);
