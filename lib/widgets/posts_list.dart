@@ -73,28 +73,37 @@ class _PostsListState extends State<PostsList> {
   }
 
   Widget _buildListItem(BuildContext context, Post post) {
-    return ListTile(
-      title: Row(
-        children: [
-          Expanded(
-            child: Text(
-              post.postDateLong,
-              style: Theme.of(context).textTheme.headline5,
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              post.postWastedItemCount.toString(),
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          )
-        ],
-      ),
-      onTap: () { Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DetailsScreen(title: widget.title, post: post,)));
-          },
+    return Semantics(
+      child: _listTile(context, post),
+      button: false,
+      label: 'List element of a wasteagram post',
+      onTapHint: 'View data about a wasteagram post',
     );
+  }
+
+  Widget _listTile(BuildContext context, Post post) {
+    return ListTile(
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                post.postDateLong,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                post.postWastedItemCount.toString(),
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            )
+          ],
+        ),
+        onTap: () { Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DetailsScreen(title: widget.title, post: post,)));
+            },
+      );
   }
 }
