@@ -50,9 +50,9 @@ class _NewPostState extends State<NewPost> {
     return Column(
       children: [
         imageToPost(),
-        wastedItemsForm(),
+        _wastedItemsForm(),
         Spacer(),
-        postButton()
+        _postButton()
       ],
     );
   }
@@ -69,7 +69,7 @@ class _NewPostState extends State<NewPost> {
     );
   }
 
-  Widget postButton() {
+  Widget _postButton() {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 150.0,
@@ -92,7 +92,7 @@ class _NewPostState extends State<NewPost> {
     
   }
 
-  Widget wastedItemsForm() {
+  Widget _wastedItemsForm() {
     return Padding(
         padding: EdgeInsets.all(40.0),
         child: Form(
