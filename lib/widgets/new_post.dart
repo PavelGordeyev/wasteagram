@@ -69,58 +69,67 @@ class _NewPostState extends State<NewPost> {
   }
 
   Widget _postButton() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 150.0,
-      child: ElevatedButton(
-        onPressed: () async {
-          if (formKey.currentState.validate()) {
-            formKey.currentState.save();
-            _submitPost();
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => PostsScreen(title: 'Wasteagram')), 
-                (Route<dynamic> route) => false);
-          }
-        }, 
-        child: Icon(Icons.upload_rounded),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
-      )
+    return Semantics(
+          button: true,
+          label: 'Submit wasteagram post button',
+          onTapHint: 'Submits wasteagram post to database',
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 150.0,
+            child: ElevatedButton(
+              onPressed: () async {
+                if (formKey.currentState.validate()) {
+                  formKey.currentState.save();
+                  _submitPost();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => PostsScreen(title: 'Wasteagram')), 
+                      (Route<dynamic> route) => false);
+                }
+              }, 
+              child: Icon(Icons.upload_rounded),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
+            )
+          ),
     );
     
   }
 
   Widget _wastedItemsForm() {
-    return Padding(
-        padding: EdgeInsets.all(40.0),
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              TextFormField(
-                autofocus: false,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                decoration: InputDecoration(hintText: '# of Wasted Items'),
-                style: TextStyle(
-                  fontSize: 30.0,
-                ),
-                onSaved: (value) {
-                  post.wastedItemCount = int.parse(value);
-                },
-                validator: (value) {
-                  if (value.isEmpty){
-                    return 'Please enter # of wasted items...';
-                  }
-                  return null;
-                },
-              ),
-            ],
-          )
-        )
-      );
+    return Semantics(
+          textField: true,
+          label: 'Enter number of wasted items in the image',
+          child: Padding(
+            padding: EdgeInsets.all(40.0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TextFormField(
+                    autofocus: false,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(hintText: '# of Wasted Items'),
+                    style: TextStyle(
+                      fontSize: 30.0,
+                    ),
+                    onSaved: (value) {
+                      post.wastedItemCount = int.parse(value);
+                    },
+                    validator: (value) {
+                      if (value.isEmpty){
+                        return 'Please enter # of wasted items...';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              )
+            )
+          ),
+    );
   }
 
   void _submitPost() async{
