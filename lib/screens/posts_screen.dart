@@ -21,18 +21,26 @@ class PostsScreen extends StatelessWidget {
           Spacer(),
           Container(
             padding: const EdgeInsets.all(50.0),
-            child: FloatingActionButton(
-              backgroundColor: Colors.orange,
-              child: Icon(Icons.camera_alt),
-              onPressed: () { Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NewPostScreen(title: 'New Post')));
-              }
+            child: Semantics(
+                child: _photoButton(context),
+                button: true,
+                enabled: true,
+                onTapHint: 'Select a photo',
+              ),
             ),
-          )
         ]
       )
     );
   }
 
+  Widget _photoButton(BuildContext context) {
+    return FloatingActionButton(
+      backgroundColor: Colors.orange,
+      child: Icon(Icons.camera_alt),
+      onPressed: () { Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NewPostScreen(title: 'New Post')));
+      }
+    );
+  }
 }
