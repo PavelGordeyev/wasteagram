@@ -57,14 +57,17 @@ class _NewPostState extends State<NewPost> {
   }
 
   Widget _imageToPost() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: 300, maxWidth: 350),
-          child: Image.file(image)
-        ),
-      ),
+    return Semantics(
+          label: 'This is the photo selected to post to wastegram of food waste',
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: 300, maxWidth: 350),
+                child: Image.file(image)
+              ),
+            ),
+          ),
     );
   }
 
