@@ -26,7 +26,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
         title: Text(widget.title),
       ),
       body: NewPost(),
-      resizeToAvoidBottomPadding: false
+      resizeToAvoidBottomInset: false
       );
   }
 }
